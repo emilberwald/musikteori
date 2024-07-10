@@ -49,7 +49,8 @@ arabic_ajnas = {
     "Saba": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-2, -3.5], modulation_pitches=[0, 3, 8]),
     "SabaDalanshin": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-1, -2], modulation_pitches=[0, 3]),
     "SabaZamzam": Jins(pitches=[0, 1, 3, 4, 7, 8], extension_pitches=[-2], modulation_pitches=[0, 3, 8]),
-    "Sazkar": Jins(pitches=[0, 3, 3.5, 5, 7], extension_pitches=[-0.5, 9], modulation_pitches=[0, 7]),
+    # https://maqamworld.com/en/jins/sazkar.php [241, 260.74, 310, 320, 347.65, 391.11, 440]Hz ~ [-136, 0, 300, 355, 498, 702, 906]c
+    "Sazkar": Jins(pitches=[0, 3, 3.5, 5, 7], extension_pitches=[-1.5, 9], modulation_pitches=[0, 7]),
     # https://maqamworld.com/en/jins/sikah.php [260.74, 293.33, 310, 320, 347.65, 391.11, 422]Hz ~ [-354, -151, -55, 0, 144, 347, 479]c
     "Sikah": Jins(pitches=[0, 1.5, 3.5], extension_pitches=[-0.5, -1.5, -3.5, 4.5], modulation_pitches=[0, 3.5]),
     # https://maqamworld.com/en/jins/sikah_baladi.php [315, 364, 391.11, 425, 485, 515]Hz ~ [-375, -124, 0, 144, 372, 476]c
