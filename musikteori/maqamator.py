@@ -44,7 +44,8 @@ arabic_ajnas = {
     "Nahawand": Jins(pitches=[0, 2, 3, 5, 7], extension_pitches=[-1, -3, -4, 8], modulation_pitches=[0, 7]),
     "NahawandMurassa": Jins(pitches=[0, 2, 3, 5, 6], extension_pitches=[-1, 9], modulation_pitches=[0]),
     "Nikriz": Jins(pitches=[0, 2, 3, 6, 7], extension_pitches=[-1, -4, 8, 9, 10], modulation_pitches=[0, 7]),
-    "Rast": Jins(pitches=[0, 2, 3.5, 5, 7], extension_pitches=[-0.5, -3, 8, 9], modulation_pitches=[0, 7]),
+    # https://maqamworld.com/en/jins/rast.php [220, 241, 260.74, 293.33, 320, 347.65, 391.11, 422, 440]Hz ~ [-294, -136, 0, 204, 355, 498, 702, 834, 906]c
+    "Rast": Jins(pitches=[0, 2, 3.5, 5, 7], extension_pitches=[-1.5, -3, 8, 9], modulation_pitches=[0, 7]),
     "Saba": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-2, -3.5], modulation_pitches=[0, 3, 8]),
     "SabaDalanshin": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-1, -2], modulation_pitches=[0, 3]),
     "SabaZamzam": Jins(pitches=[0, 1, 3, 4, 7, 8], extension_pitches=[-2], modulation_pitches=[0, 3, 8]),
