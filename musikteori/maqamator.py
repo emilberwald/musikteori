@@ -25,37 +25,39 @@ class Jins:
 
 
 arabic_ajnas = {
+    "SabaZamzam": Jins(pitches=[0, 1, 3, 4, 7, 8], extension_pitches=[-2], modulation_pitches=[0, 3, 8]),
+    "Kurd": Jins(pitches=[0, 1, 3, 5], extension_pitches=[-2, 7, 8], modulation_pitches=[0, 5]),
+    "Lami": Jins(pitches=[0, 1, 3, 5, 6], extension_pitches=[8], modulation_pitches=[0, 5]),
+    "AtharKurd": Jins(pitches=[0, 1, 3, 6, 7], extension_pitches=[-1, -4, 8], modulation_pitches=[0, 7]),
+    "Hijaz": Jins(pitches=[0, 1, 4, 5], extension_pitches=[-2, -3.5, 7, 8], modulation_pitches=[0, 5]),
+    "HijazMurassa": Jins(pitches=[0, 1, 4, 5, 6], extension_pitches=[-2, -1], modulation_pitches=[0, 5]),
+    "MukhalifSharqi": Jins(pitches=[0, 1.5, 2.5], extension_pitches=[], modulation_pitches=[0]),
+    "Saba": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-2, -3.5], modulation_pitches=[0, 3, 8]),
+    "SabaDalanshin": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-1, -2], modulation_pitches=[0, 3]),
+    "Bayati": Jins(pitches=[0, 1.5, 3, 5], extension_pitches=[-2, -3.5, 7, 8], modulation_pitches=[0, 5]),
+    # https://maqamworld.com/en/jins/sikah.php [260.74, 293.33, 310, 320, 347.65, 391.11, 422]Hz ~ [-354, -151, -55, 0, 144, 347, 479]c
+    "Sikah": Jins(pitches=[0, 1.5, 3.5], extension_pitches=[-0.5, -1.5, -3.5, 4.5], modulation_pitches=[0, 3.5]),
+    "NahawandMurassa": Jins(pitches=[0, 2, 3, 5, 6], extension_pitches=[-1, 9], modulation_pitches=[0]),
+    "Nahawand": Jins(pitches=[0, 2, 3, 5, 7], extension_pitches=[-1, -3, -4, 8], modulation_pitches=[0, 7]),
+    "Nikriz": Jins(pitches=[0, 2, 3, 6, 7], extension_pitches=[-1, -4, 8, 9, 10], modulation_pitches=[0, 7]),
+    # https://maqamworld.com/en/jins/rast.php [220, 241, 260.74, 293.33, 320, 347.65, 391.11, 422, 440]Hz ~ [-294, -136, 0, 204, 355, 498, 702, 834, 906]c
+    "Rast": Jins(pitches=[0, 2, 3.5, 5, 7], extension_pitches=[-1.5, -3, 8, 9], modulation_pitches=[0, 7]),
+    "UpperRast": Jins(pitches=[0, 2, 3.5, 5], extension_pitches=[-2, 7], modulation_pitches=[0, 5]),
+    # https://tuning.ableton.com/arabic-maqam/jiharkah/ 378c 460c
+    # https://maqamworld.com/en/jins/jiharkah.php [293.33, 321.33, 347.65, 391.11, 433, 454, 521.48]Hz ~ [-294,  -136, 0, 204, 380, 462, 702]c
+    "Jiharkah": Jins(pitches=[0, 2, 4 - 0.2, 5 - 0.4, 7], extension_pitches=[-1.33, -3], modulation_pitches=[0, 7]),
     "Ajam5": Jins(pitches=[0, 2, 4, 5, 7], extension_pitches=[-1, -3, 9], modulation_pitches=[0, 7]),
     "UpperAjam": Jins(pitches=[0, 2, 4, 5], extension_pitches=[-2, 7], modulation_pitches=[0, 5]),
     "Ajam3": Jins(pitches=[0, 2, 4], extension_pitches=[-1, -3, 5, 7], modulation_pitches=[0, 4]),
     "AjamMurassa": Jins(pitches=[0, 2, 4, 6, 7], extension_pitches=[-1, 9], modulation_pitches=[0, 7]),
-    "AtharKurd": Jins(pitches=[0, 1, 3, 6, 7], extension_pitches=[-1, -4, 8], modulation_pitches=[0, 7]),
-    "Bayati": Jins(pitches=[0, 1.5, 3, 5], extension_pitches=[-2, -3.5, 7, 8], modulation_pitches=[0, 5]),
-    "Hijaz": Jins(pitches=[0, 1, 4, 5], extension_pitches=[-2, -3.5, 7, 8], modulation_pitches=[0, 5]),
-    "HijazMurassa": Jins(pitches=[0, 1, 4, 5, 6], extension_pitches=[-2, -1], modulation_pitches=[0, 5]),
-    "Hijazkar": Jins(pitches=[0, 3, 4, 5, 8, 9], extension_pitches=[], modulation_pitches=[4]),
-    # https://tuning.ableton.com/arabic-maqam/jiharkah/ 378c 460c
-    # https://maqamworld.com/en/jins/jiharkah.php [293.33, 321.33, 347.65, 391.11, 433, 454, 521.48]Hz ~ [-294,  -136, 0, 204, 380, 462, 702]c
-    "Jiharkah": Jins(pitches=[0, 2, 4 - 0.2, 5 - 0.4, 7], extension_pitches=[-1.33, -3], modulation_pitches=[0, 7]),
-    "Kurd": Jins(pitches=[0, 1, 3, 5], extension_pitches=[-2, 7, 8], modulation_pitches=[0, 5]),
-    "Lami": Jins(pitches=[0, 1, 3, 5, 6], extension_pitches=[8], modulation_pitches=[0, 5]),
-    "MukhalifSharqi": Jins(pitches=[0, 1.5, 2.5], extension_pitches=[], modulation_pitches=[0]),
+    # https://maqamworld.com/en/jins/sikah_baladi.php [315, 364, 391.11, 425, 485, 515]Hz ~ [-375, -124, 0, 144, 372, 476]c
+    # NOTE: Sikah ~ [0, 150, 350]c
+    # NOTE: SikahBaladi ~ [0, 255, 377, 521, 747, 854]c from root (instead of from tonic)
+    "SikahBaladi": Jins(pitches=[-3.77, -1.22, 0, 1.44, 3.7, 4.77], extension_pitches=[], modulation_pitches=[0]),
     "Mustaar": Jins(pitches=[0, 2.5, 3.5], extension_pitches=[-0.5, 2, 1], modulation_pitches=[0]),
-    "Nahawand": Jins(pitches=[0, 2, 3, 5, 7], extension_pitches=[-1, -3, -4, 8], modulation_pitches=[0, 7]),
-    "NahawandMurassa": Jins(pitches=[0, 2, 3, 5, 6], extension_pitches=[-1, 9], modulation_pitches=[0]),
-    "Nikriz": Jins(pitches=[0, 2, 3, 6, 7], extension_pitches=[-1, -4, 8, 9, 10], modulation_pitches=[0, 7]),
-    # https://maqamworld.com/en/jins/rast.php [220, 241, 260.74, 293.33, 320, 347.65, 391.11, 422, 440]Hz ~ [-294, -136, 0, 204, 355, 498, 702, 834, 906]c
-    "Rast": Jins(pitches=[0, 2, 3.5, 5, 7], extension_pitches=[-1.5, -3, 8, 9], modulation_pitches=[0, 7]),
-    "Saba": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-2, -3.5], modulation_pitches=[0, 3, 8]),
-    "SabaDalanshin": Jins(pitches=[0, 1.5, 3, 4, 7, 8], extension_pitches=[-1, -2], modulation_pitches=[0, 3]),
-    "SabaZamzam": Jins(pitches=[0, 1, 3, 4, 7, 8], extension_pitches=[-2], modulation_pitches=[0, 3, 8]),
     # https://maqamworld.com/en/jins/sazkar.php [241, 260.74, 310, 320, 347.65, 391.11, 440]Hz ~ [-136, 0, 300, 355, 498, 702, 906]c
     "Sazkar": Jins(pitches=[0, 3, 3.5, 5, 7], extension_pitches=[-1.5, 9], modulation_pitches=[0, 7]),
-    # https://maqamworld.com/en/jins/sikah.php [260.74, 293.33, 310, 320, 347.65, 391.11, 422]Hz ~ [-354, -151, -55, 0, 144, 347, 479]c
-    "Sikah": Jins(pitches=[0, 1.5, 3.5], extension_pitches=[-0.5, -1.5, -3.5, 4.5], modulation_pitches=[0, 3.5]),
-    # https://maqamworld.com/en/jins/sikah_baladi.php [315, 364, 391.11, 425, 485, 515]Hz ~ [-375, -124, 0, 144, 372, 476]c
-    "SikahBaladi": Jins(pitches=[-3.77, -1.22, 0, 1.44, 3.7, 4.77], extension_pitches=[], modulation_pitches=[0]),
-    "UpperRast": Jins(pitches=[0, 2, 3.5, 5], extension_pitches=[-2, 7], modulation_pitches=[0, 5]),
+    "Hijazkar": Jins(pitches=[0, 3, 4, 5, 8, 9], extension_pitches=[], modulation_pitches=[4]),
 }
 
 # TODO: some kind of network traverser using networkx, for sayr and maqam
