@@ -36,7 +36,7 @@ arabic_ajnas = {
     "Hijazkar": Jins(pitches=[0, 3, 4, 5, 8, 9], extension_pitches=[], modulation_pitches=[4]),
     # https://tuning.ableton.com/arabic-maqam/jiharkah/ 378c 460c
     # https://maqamworld.com/en/jins/jiharkah.php [293.33, 321.33, 347.65, 391.11, 433, 454, 521.48]Hz ~ [-294,  -136, 0, 204, 380, 462, 702]c
-    "Jiharkah": Jins(pitches=[0, 2, 4 - 0.2, 5 - 0.4, 7], extension_pitches=[-0.5, -3], modulation_pitches=[0, 7]),
+    "Jiharkah": Jins(pitches=[0, 2, 4 - 0.2, 5 - 0.4, 7], extension_pitches=[-1.33, -3], modulation_pitches=[0, 7]),
     "Kurd": Jins(pitches=[0, 1, 3, 5], extension_pitches=[-2, 7, 8], modulation_pitches=[0, 5]),
     "Lami": Jins(pitches=[0, 1, 3, 5, 6], extension_pitches=[8], modulation_pitches=[0, 5]),
     "MukhalifSharqi": Jins(pitches=[0, 1.5, 2.5], extension_pitches=[], modulation_pitches=[0]),
