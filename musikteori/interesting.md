@@ -154,7 +154,7 @@
         2: {},
         # shifted halftone fingers
         3: {"BIRian": [0, 4, 6, 7]},
-        # shifted halftone fingers
+        # shifted halftone fingers + 1 reaching
         4: {"koptic": [0, 4, 6, 8], "epogic": [0, 4, 7, 8], "dim add5": [0, 3, 6, 7]},
         # shifted half/wholetone fingers
         5: {
