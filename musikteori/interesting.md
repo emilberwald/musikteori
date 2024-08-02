@@ -22,7 +22,7 @@
             "sus4": [0, 5, 7],
             "ongkari": [0, 6, 7],
         },
-        # half/wholetone fingers
+        # half/wholetone fingers + 1 reaching
         8: {
             "aug": [0, 4, 8],
             "sarvasri aug5": [0, 5, 8],
@@ -33,7 +33,7 @@
             "sus b2 aug5": [0, 1, 8],
             "sus2 aug5 ": [0, 2, 8],
         },
-        # half/wholetone fingers + 1 reaching
+        # half/wholetone/third fingers 
         9: {
             "bugle": [0, 5, 9],
             "ILLian": [0, 6, 9],
@@ -137,9 +137,9 @@
             "MODian": [0, 5, 11],
             "sus2 aug5 ": [0, 2, 8],
         },
-        # shifted half/wholetone fingers
+        # shifted half/wholetone fingers + 1 reaching
         7: {"sus b2 aug5": [0, 1, 8], "sus2 6": [0, 2, 9], "ute (b)7": [0, 3, 10], "MOTian": [0, 4, 11]},
-        # shifted half/wholetone fingers
+        # shifted half/wholetone/third fingers
         8: {"sus b2 6": [0, 1, 9], "sus2 (b)7": [0, 2, 10], "ute [maj]7": [0, 3, 11]},
         # shifted half/wholetone/third fingers
         9: {"sus b2 (b)7": [0, 1, 10], "sus2 [maj]7": [0, 2, 11]},
