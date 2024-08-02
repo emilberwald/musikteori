@@ -172,7 +172,7 @@
             "dom7": [0, 4, 7, 10],
             "aug(5) (b)7": [0, 4, 8, 10],
         },
-        # shifted half/wholetone fingers + reaching
+        # shifted half/wholetone fingers + 1 reaching
         7: {
             "half dim7": [0, 3, 6, 10],
             "min (b)7": [0, 3, 7, 10],
