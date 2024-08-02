@@ -109,7 +109,7 @@
             "dom7 no3": [0, 7, 10],
             "aug(5) [maj]7 no3": [0, 8, 11],
         },
-        # shifted halftone fingers
+        # shifted halftone fingers + 1 reaching
         4: {
             "sus b2 4": [0, 1, 5],
             "sus2 b5": [0, 2, 6],
