@@ -42,7 +42,7 @@ def nonstandard_ajnas():
         "sus b2 (b)7": [0, 1, 10],
         "sus b2 [maj]7": [0, 1, 11],
         "nahawand3": [0, 2, 3],
-        "ajam3": [0, 2, 4],
+        "ajam3": [0, 2, 4],  # wholetone trichord
         "sus2 4": [0, 2, 5],
         "sus2 b5": [0, 2, 6],
         "sus2": [0, 2, 7],
@@ -90,6 +90,46 @@ def nonstandard_ajnas():
     }
 
     tetrads = {
+        # wholetone span
+        "indu4": [0, 1, 2, 5],
+        "ADOian": [0, 1, 3, 4],
+        "kurd4": [0, 1, 3, 5],  # netra chakra (subset)
+        "hijaz4": [0, 1, 4, 5],  # agni chakra (subset)
+        "nahawand4": [0, 2, 3, 5],  # veda chakra (subset)
+        "ajam4": [0, 2, 4, 5],  # bana chakra (subset)
+        "hijazkar4": [0, 3, 4, 5],  # rutu chakra (subset)
+        "APHian": [0, 1, 2, 4],
+        "rishi4": [0, 1, 2, 6],  # rishi chakra (subset)
+        "vasu4": [0, 1, 3, 6],  # vasu chakra (subset)
+        "brahma4": [0, 1, 4, 6],  # brahma chakra (subset)
+        "IPRian": [0, 1, 5, 6],
+        "ADUian": [0, 2, 3, 4],
+        "disi4": [0, 2, 3, 6],  # disi chakra (subset)
+        "rudra4": [0, 2, 4, 6],  # rudra chakra (subset)
+        "APOian": [0, 2, 5, 6],
+        "aditya4": [0, 3, 4, 6],  # aditya chakra (subset)
+        "EDWian": [0, 3, 5, 6],
+        "ARUian": [0, 4, 5, 6],
+        "inuit": [0, 2, 4, 7],  # inuit tetratonic
+        "primum": [0, 2, 5, 7],  # genus primum
+        "BAJian": [0, 3, 4, 7],
+        "vietnamese": [0, 3, 5, 7],  # vietnamese tetratonic
+        "BABian": [0, 2, 3, 7],
+        "AYOian": [0, 1, 3, 7],
+        "BAPian": [0, 1, 5, 7],
+        "BEMian": [0, 3, 6, 7],
+        "BEXian": [0, 4, 5, 7],
+        "inuit4": [0, 2, 4, 7],
+        "mixolyric": [0, 2, 4, 8],
+        "lanic": [0, 3, 4, 8],
+        "haripriya4": [0, 3, 5, 8],
+        "mynic": [0, 3, 5, 8],
+        "BEKian": [0, 2, 6, 7],
+        "lonic": [0, 3, 6, 8],
+        "french 6": [0, 2, 6, 8],
+        "gonic": [0, 4, 5, 8],
+        "BIRian": [0, 4, 6, 7],
+        # larger span
         "dim add5": [0, 3, 6, 7],
         "mynic": [0, 3, 6, 8],
         "dim7": [0, 3, 6, 9],
@@ -160,5 +200,3 @@ arabic_ajnas = {
 
 # TODO: some kind of network traverser using networkx, for sayr and maqam
 # TODO: Instead of floats, use accidentals, and inject "dialect"?
-
-
