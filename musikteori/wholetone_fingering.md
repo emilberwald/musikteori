@@ -25,7 +25,7 @@ APOian      0--2---5-6
 
 rudra       0--2--4--6
             |--|--|--\
-inuit4       0--2--4---7    (inuit tetratonic)
+inuit4      0--2--4---7    (inuit tetratonic)
 ```
 
 2 left
