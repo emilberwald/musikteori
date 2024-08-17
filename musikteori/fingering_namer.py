@@ -186,9 +186,11 @@ if __name__ == "__main__":
             scale_names[key] = dozenal[key]
 
     max_name_length = 0
-    for scale_name in scale_names.values():
-        for word in scale_name.split():
-            max_name_length = max(max_name_length, len(word))
+    for scale_key, scale_name in scale_names.items():
+        scale_key: str
+        if scale_key.isdigit():
+            for word in scale_name.split():
+                max_name_length = max(max_name_length, len(word))
 
     unformatted_text = ""
     # ¶ did not seem to be visualized as I intended
