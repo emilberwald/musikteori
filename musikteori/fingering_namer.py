@@ -201,7 +201,7 @@ if __name__ == "__main__":
     for scale_semitones in generate_scales(args.fingers, True):
         if (
             transition_representaiton := get_transition_representation(
-                [0, 2, 4, 6, 8], scale_semitones, movement_max=args.movement_max
+                [0, 2, 4, 6, 8], scale_semitones, movement_max=args.movement_max, fret_max=args.fret_max
             )
         ) is not None:
             source_text, transitions, target_text = transition_representaiton
