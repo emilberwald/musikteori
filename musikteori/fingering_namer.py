@@ -63,8 +63,10 @@ def semitones_to_scale_id(semitones: Sequence[int]):
 
 
 def get_transition_representation(
-    source_semitones: Sequence[int], target_semitones: Sequence[int], *, movement_max: int
+    source_semitones: Sequence[int], target_semitones: Sequence[int], *, movement_max: int, fret_max: int
 ):
+    if max(target_semitones) > fret_max:
+        return None
     source_text = get_representation(source_semitones)
     target_text = get_representation(target_semitones)
     transitions = list(source_text)
@@ -159,6 +161,7 @@ if __name__ == "__main__":
         type=int,
         help="The max number of semitones a finger can move to include the scale.",
     )
+    parser.add_argument("--fret-max", default=12, type=int, help="Use this to limit the maximum fret to be used")
     parser.add_argument(
         "--line-length",
         default=152,
