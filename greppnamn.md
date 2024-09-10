@@ -1,4 +1,4 @@
-Idé för namngivning av ackord:
+Idé för namngivning av greppnamn:
 Läs från låg frekvens till hög frekvens kolumnvist över strängarna, med nummertal för mer än 1, och ö där inte tryckt
 med PIMAC (pulgar, indice, anular, chiquito)
 så mollform t.ex. kunde bli tvöI-MA
