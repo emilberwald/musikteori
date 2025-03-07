@@ -131,7 +131,10 @@ def generate_scales(nof_fingers: int, include_open_string: bool = True):
     combinations = list(itertools.combinations(semitones, nof_fingers))
 
     for combo in combinations:
-        yield (0,) + combo
+        if include_open_string:
+            yield (0,) + combo
+        else:
+            yield combo
 
 
 def generate_text(source_text, transitions, target_text, scale_name, *, max_name_length):
@@ -181,12 +184,12 @@ if __name__ == "__main__":
     with importlib.resources.open_text(__package__, "dozenal.json", encoding="utf-8") as f:
         dozenal = json.load(f)
     scale_names = dict()
-    for key, value in scales.items():
+    for key, value in dozenal.items():
         value: str
         if value.isascii():
             scale_names[key] = value
         else:
-            scale_names[key] = dozenal[key]
+            scale_names[key] = scales[key]
 
     max_name_length = 0
     for scale_key, scale_name in scale_names.items():
@@ -201,7 +204,7 @@ if __name__ == "__main__":
     for scale_semitones in generate_scales(args.fingers, True):
         if (
             transition_representaiton := get_transition_representation(
-                [0, 2, 4, 6, 8], scale_semitones, movement_max=args.movement_max, fret_max=args.fret_max
+                [0, 2, 4, 6], scale_semitones, movement_max=args.movement_max, fret_max=args.fret_max
             )
         ) is not None:
             source_text, transitions, target_text = transition_representaiton
