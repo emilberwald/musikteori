@@ -8,16 +8,38 @@ import maqamator
 
 
 class Printer:
-    def __init__(self, ajnas: Dict[str, maqamator.Jins]):
-        # Got a bit messy with ◯ as unused
-        self.pitch_map = {
+    themes = {
+        "stars": {
             "tonic": "✪",
             "modulation": "❂",
             "pitches": "⦿",
             "octave": "⛭",
             "extension": "⊛",
-            "unused": "",
-        }
+            "unused": "",  # Got a bit messy with ◯ as unused
+            "unused_halftone": "◯",
+        },
+        "crossed": {
+            "tonic": "Ⓣ",
+            "modulation": "⟴",
+            "pitches": "⊕",
+            "octave": "⧂",
+            "extension": "⊛",
+            "unused": "",  # Got a bit messy with ◯ as unused
+            "unused_halftone": "◯",
+        },
+        "enclosed_alphanumerics": {
+            "tonic": "Ⓣ",
+            "modulation": "Ⓜ",
+            "pitches": "Ⓟ",
+            "octave": "ⓞ",
+            "extension": "ⓔ",
+            "unused": "",  # Got a bit messy with ◯ as unused
+            "unused_halftone": "◯",
+        },
+    }
+
+    def __init__(self, ajnas: Dict[str, maqamator.Jins], theme: Dict[str, str]):
+        self.theme = theme
         # Generate the fretboard grid
         steps = numpy.linspace(0, 10, 41).tolist()
         self._pitches_for_strings = [
@@ -38,7 +60,7 @@ class Printer:
             for pitches_for_string in self._pitches_for_strings:
                 row = []
                 for pitch in pitches_for_string:
-                    symbol = self._get_symbol(self.pitch_map, jins, pitch)
+                    symbol = self._get_symbol(self.theme, jins, pitch)
                     row.append(symbol)
                 name_to_grid[jins_name].append(row)
 
@@ -47,7 +69,7 @@ class Printer:
     def __str__(self):
         return "\n".join(
             [
-                str(self.pitch_map),
+                str(self.theme),
                 "\n".join(
                     [
                         "\n".join(
@@ -94,7 +116,7 @@ class Printer:
                     if j > 0:
                         text += "\t"
                     if col == "":
-                        text += "◯"
+                        text += self.theme["unused_halftone"]
                     else:
                         text += str(col)
                 else:
@@ -108,8 +130,19 @@ class Printer:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Choose a drawing theme", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument(
+        "--theme",
+        choices=Printer.themes.keys(),
+        required=True,
+        help="Choose a theme for the printing.",
+    )
+    args = parser.parse_args()
+    selected_theme = Printer.themes[args.theme]
 
-    pathlib.Path("ajnas.txt").write_text(
-        str(Printer(ajnas=maqamator.arabic_ajnas)),
+    pathlib.Path(f"ajnas-{args.theme}.txt").write_text(
+        str(Printer(ajnas=maqamator.arabic_ajnas, theme=selected_theme)),
         encoding="utf-8",
     )
