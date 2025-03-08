@@ -91,7 +91,8 @@ class Printer:
                 closest_pitch = pitches_for_strings[i][j]
                 fractional_part = closest_pitch - int(closest_pitch)
                 if fractional_part == 0:
-                    text += "\t"
+                    if j > 0:
+                        text += "\t"
                     if col == "":
                         text += "◯"
                     else:
