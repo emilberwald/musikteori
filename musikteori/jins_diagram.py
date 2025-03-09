@@ -143,6 +143,10 @@ if __name__ == "__main__":
     selected_theme = Printer.themes[args.theme]
 
     pathlib.Path(f"ajnas-{args.theme}.txt").write_text(
-        str(Printer(ajnas=maqamator.arabic_ajnas, theme=selected_theme)),
+        str(
+            Printer(
+                ajnas={key: maqamator.arabic_ajnas[key] for key in sorted(maqamator.arabic_ajnas)}, theme=selected_theme
+            )
+        ),
         encoding="utf-8",
     )
