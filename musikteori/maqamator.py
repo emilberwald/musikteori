@@ -187,9 +187,9 @@ arabic_ajnas = {
     # https://maqamworld.com/en/jins/rast.php [220, 241, 260.74, 293.33, 320, 347.65, 391.11, 422, 440]Hz ~ [-294, -136, 0, 204, 355, 498, 702, 834, 906]c
     "Rast": Jins(pitches=[0, 2, 3.5, 5, 7], extension_pitches=[-1.5, -3, 8, 9], modulation_pitches=[0, 7]),
     "UpperRast": Jins(pitches=[-5, -3, -1.5, 0], extension_pitches=[-7, 2], modulation_pitches=[-5, 0]),
-    # https://tuning.ableton.com/arabic-maqam/jiharkah/ 378c 460c
+    # https://tuning.ableton.com/arabic-maqam/jiharkah/ 0c 209c 378c 460c 702c 1061c
     # https://maqamworld.com/en/jins/jiharkah.php [293.33, 321.33, 347.65, 391.11, 433, 454, 521.48]Hz ~ [-294,  -136, 0, 204, 380, 462, 702]c
-    "Jiharkah": Jins(pitches=[0, 2, 4 - 0.2, 5 - 0.4, 7], extension_pitches=[-1.33, -3], modulation_pitches=[0, 7]),
+    "Jiharkah": Jins(pitches=[0, 2, 4 - 0.2, 5 - 0.4, 7], extension_pitches=[-1.5, -3], modulation_pitches=[0, 7]),
     "Ajam5": Jins(pitches=[0, 2, 4, 5, 7], extension_pitches=[-1, -3, 9], modulation_pitches=[0, 7]),
     "UpperAjam": Jins(pitches=[-5, -3, -1, 0], extension_pitches=[-7, 2], modulation_pitches=[-5, 0]),
     "Ajam3": Jins(pitches=[0, 2, 4], extension_pitches=[-1, -3, 5, 7], modulation_pitches=[0, 4]),
