@@ -5,7 +5,9 @@ description = "Musikteori"
 readme = "README.md"
 requires-python = ">=3.8"
 
-dependencies = ["opencv-python", "numpy", "pint", "scipy"]
+#winget install pygraphviz
+#python -m pip install --config-settings="--global-option=build_ext"  --config-settings="--global-option=-IC:\Program Files\Graphviz\include"  --config-settings="--global-option=-LC:\Program Files\Graphviz\lib"  pygraphviz
+dependencies = ["networkx", "opencv-python", "numpy", "pint", "scipy", "pygraphviz"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov[all]", "black", "flake8", "mypy"]
