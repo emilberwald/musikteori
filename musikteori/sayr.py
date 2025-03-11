@@ -17,7 +17,13 @@ from typing import Dict, List
 
 class Sayr:
     def __init__(
-        self, ajnas: Dict[str, maqamator.Jins], bottom: str, bottom_pitch: int, bottom_degree: int, depth: int
+        self,
+        ajnas: Dict[str, maqamator.Jins],
+        bottom: str,
+        bottom_pitch: int,
+        bottom_degree: int,
+        depth: int,
+        topk: List[int] = None,
     ):
         self.ajnas = ajnas
         self.bottom = bottom
@@ -25,6 +31,7 @@ class Sayr:
         self.bottom_degree = bottom_degree
         self.depth = depth
         self.graph = networkx.DiGraph()
+        self.topk = topk
         self._create_graph()
 
     def add_node(
@@ -140,8 +147,8 @@ class Sayr:
                     }
                 )
         prunedkwargslist = (
-            sorted(bestkwargslist, key=lambda x: x["similarity"], reverse=True)[0:4]
-            if False  # current_depth > 1
+            sorted(bestkwargslist, key=lambda x: x["similarity"], reverse=True)[0 : 1 + self.topk[current_depth]]
+            if self.topk is not None
             else bestkwargslist
         )
         for bestkwargs in prunedkwargslist:
@@ -173,7 +180,7 @@ class Sayr:
         for u, v, data in self.graph.edges(data=True):
             u_degree = self.graph.nodes[u]["degree"]
             v_degree = self.graph.nodes[v]["degree"]
-            label = f"{u}->{v} ({u_degree + v_degree})"
+            label = f"{u}->{v} ({u_degree + v_degree}) : {self.graph.nodes(data=True)[v]["similarity"]}"
             A.get_edge(u, v).attr["label"] = label
 
         # Draw the graph to the specified filename
@@ -209,3 +216,6 @@ iraq = Sayr(
     depth=2,
 )
 iraq.visualize("iraq.png")
+
+from_hijaz = Sayr(maqamator.arabic_ajnas, bottom="Hijaz", bottom_pitch=0, bottom_degree=1, depth=2, topk=[3, 3, 3])
+from_hijaz.visualize("from_hijaz.png")
