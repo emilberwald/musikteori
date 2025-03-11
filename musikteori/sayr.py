@@ -16,10 +16,13 @@ from typing import Dict, List
 
 
 class Sayr:
-    def __init__(self, ajnas: Dict[str, maqamator.Jins], bottom: str, bottom_pitch: int, depth: int):
+    def __init__(
+        self, ajnas: Dict[str, maqamator.Jins], bottom: str, bottom_pitch: int, bottom_degree: int, depth: int
+    ):
         self.ajnas = ajnas
         self.bottom = bottom
         self.bottom_tonic_pitch = bottom_pitch
+        self.bottom_degree = bottom_degree
         self.depth = depth
         self.graph = networkx.DiGraph()
         self._create_graph()
@@ -36,7 +39,7 @@ class Sayr:
         depth: int,
     ):
 
-        identity = f"{name} {degree} : {root_pitch}/{tonic_pitch} : {similarity} : {depth}"
+        identity = f"{name} {degree} : {int(root_pitch)}/{int(tonic_pitch)}"
         self.graph.add_node(
             identity,
             name=name,
@@ -55,7 +58,7 @@ class Sayr:
             root_pitch=self.bottom_tonic_pitch + min(self.ajnas[self.bottom].pitches),
             tonic_pitch=self.bottom_tonic_pitch,
             jins=self.ajnas[self.bottom],
-            degree=1,
+            degree=self.bottom_degree,
             similarity=float("inf"),
             depth=0,
         )
@@ -64,12 +67,12 @@ class Sayr:
         #     node for node, in_deg in self.graph.in_degree() if in_deg <= 1 and self.graph.nodes[node]["depth"] > 1
         # ]
         # self.graph.remove_nodes_from(nodes_to_remove)
-        # nodes_to_remove = [
-        #     node
-        #     for node, out_deg in self.graph.out_degree()
-        #     if out_deg <= 0 and self.graph.nodes[node]["depth"] < self.depth
-        # ]
-        # self.graph.remove_nodes_from(nodes_to_remove)
+        nodes_to_remove = [
+            node
+            for node, out_deg in self.graph.out_degree()
+            if out_deg <= 0 and self.graph.nodes[node]["depth"] < self.depth
+        ]
+        self.graph.remove_nodes_from(nodes_to_remove)
 
     def _similarity_score(self, source_pitches, dest_pitches, threshold=0.25):
         used_indices = []  # To keep track of used elements in dest_pitches
@@ -81,7 +84,8 @@ class Sayr:
 
             for i, dest_pitch in enumerate(dest_pitches):
                 if i not in used_indices:  # Avoid double counting
-                    distance = abs(pitch - dest_pitch)
+                    # Try some module octave stuff
+                    distance = abs((pitch % 12.0) - (dest_pitch % 12.0))
                     if distance < threshold:
                         if (closest_distance is None) or (distance < closest_distance):
                             closest_distance = distance
@@ -100,36 +104,50 @@ class Sayr:
         source_root_pitch: int = self.graph.nodes[source_id]["root_pitch"]
         source_jins: maqamator.Jins = self.graph.nodes[source_id]["jins"]
         source_degree: int = self.graph.nodes[source_id]["degree"]
+        bestkwargslist = []
         for dest_name, dest_jins in self.ajnas.items():
             if source_name == dest_name:
                 continue
             best_root_pitch = None
             best_tonic_pitch = None
+            best_modulation = None
             best_similarity = 0
             for source_modulation in source_jins.modulation_pitches:
                 for dest_modulation in dest_jins.modulation_pitches:
                     dest_tonic_pitch = source_root_pitch + source_modulation - dest_modulation
                     dest_root_pitch = dest_tonic_pitch + min(dest_jins.pitches)
                     if dest_root_pitch > source_root_pitch:
-                        source_pitches = source_root_pitch + numpy.array(source_jins.pitches)
-                        dest_pitches = dest_root_pitch + numpy.array(dest_jins.pitches)
+                        source_pitches = source_root_pitch + numpy.array(
+                            source_jins.pitches + source_jins.extension_pitches
+                        )
+                        dest_pitches = dest_root_pitch + numpy.array(dest_jins.pitches + source_jins.extension_pitches)
                         similarity = self._similarity_score(source_pitches=source_pitches, dest_pitches=dest_pitches)
                         if similarity > best_similarity:
                             best_similarity = similarity
                             best_tonic_pitch = dest_tonic_pitch
                             best_root_pitch = dest_root_pitch
-            if best_root_pitch is not None and best_tonic_pitch is not None:
-                dest_id = self.add_node(
-                    name=dest_name,
-                    root_pitch=best_root_pitch,
-                    tonic_pitch=best_tonic_pitch,
-                    jins=dest_jins,
-                    degree=source_degree + source_jins.pitches.index(source_modulation),
-                    similarity=best_similarity,
-                    depth=current_depth,
+                            best_modulation = source_modulation
+            if best_root_pitch is not None and best_tonic_pitch is not None and best_modulation is not None:
+                bestkwargslist.append(
+                    {
+                        "name": dest_name,
+                        "root_pitch": best_root_pitch,
+                        "tonic_pitch": best_tonic_pitch,
+                        "jins": dest_jins,
+                        "degree": source_degree + source_jins.pitches.index(best_modulation),
+                        "similarity": best_similarity,
+                        "depth": current_depth,
+                    }
                 )
-                self.graph.add_edge(source_id, dest_id)
-                self._expand_graph(dest_id, current_depth=current_depth + 1)
+        prunedkwargslist = (
+            sorted(bestkwargslist, key=lambda x: x["similarity"], reverse=True)[0:4]
+            if False  # current_depth > 1
+            else bestkwargslist
+        )
+        for bestkwargs in prunedkwargslist:
+            dest_id = self.add_node(**bestkwargs)
+            self.graph.add_edge(source_id, dest_id)
+            self._expand_graph(dest_id, current_depth=current_depth + 1)
 
     def visualize(self, filename="sayr_graph.png"):
         A = networkx.nx_agraph.to_agraph(self.graph)
@@ -170,10 +188,24 @@ zanjaran = Sayr(
     {
         key: value
         for key, value in maqamator.arabic_ajnas.items()
-        if key in {"Ajam3", "Hijaz", "SabaDalanshin", "Nahawand", "Nikriz", "Hijazkar"}
+        if key in {"Ajam3", "Ajam5", "Hijaz", "SabaDalanshin", "Nahawand", "Nikriz", "Hijazkar"}
     },
     bottom="Hijaz",
     bottom_pitch=0,
+    bottom_degree=1,
     depth=2,
 )
 zanjaran.visualize("zanjaran.png")
+
+iraq = Sayr(
+    {
+        key: value
+        for key, value in maqamator.arabic_ajnas.items()
+        if key in {"Rast", "Sikah", "Bayati", "Hijaz", "Saba", "Nahawand"}
+    },
+    bottom="Sikah",
+    bottom_pitch=0,
+    bottom_degree=1,
+    depth=2,
+)
+iraq.visualize("iraq.png")
