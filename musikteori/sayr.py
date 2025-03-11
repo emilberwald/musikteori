@@ -146,15 +146,14 @@ class Sayr:
                         "depth": current_depth,
                     }
                 )
-        prunedkwargslist = (
-            sorted(bestkwargslist, key=lambda x: x["similarity"], reverse=True)[0 : 1 + self.topk[current_depth]]
-            if self.topk is not None
-            else bestkwargslist
-        )
-        for bestkwargs in prunedkwargslist:
-            dest_id = self.add_node(**bestkwargs)
-            self.graph.add_edge(source_id, dest_id)
-            self._expand_graph(dest_id, current_depth=current_depth + 1)
+        bestkwargslist = sorted(bestkwargslist, key=lambda x: x["similarity"], reverse=True)
+        for ix, bestkwargs in enumerate(bestkwargslist):
+            if self.topk is None or ix < 1 + self.topk[current_depth]:
+                dest_id = self.add_node(**bestkwargs)
+                self.graph.add_edge(source_id, dest_id)
+                self._expand_graph(dest_id, current_depth=current_depth + 1)
+            else:
+                pass
 
     def visualize(self, filename="sayr_graph.png"):
         A = networkx.nx_agraph.to_agraph(self.graph)
@@ -217,5 +216,6 @@ iraq = Sayr(
 )
 iraq.visualize("iraq.png")
 
-from_hijaz = Sayr(maqamator.arabic_ajnas, bottom="Hijaz", bottom_pitch=0, bottom_degree=1, depth=2, topk=[3, 3, 3])
-from_hijaz.visualize("from_hijaz.png")
+for source in maqamator.arabic_ajnas.keys():
+    from_source = Sayr(maqamator.arabic_ajnas, bottom=source, bottom_pitch=0, bottom_degree=1, depth=1, topk=[1, 5])
+    from_source.visualize(f"from_{source}.png")
