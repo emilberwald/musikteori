@@ -61,20 +61,20 @@ def turkish_jins_factory(*, turkish_chord: TurkishChord, common_turkish_chords: 
         A = 12 * 12.0 / 53.0
 
     def get_pitches(intervals: str):
-        pitches = [0]
+        pitches = [0.0]
         for interval in intervals:
             if interval == "F":
-                pitches.append(pitches[-1] + TurkishSemitones.F)
+                pitches.append(pitches[-1] + TurkishSemitones.F.value)
             elif interval == "B":
-                pitches.append(pitches[-1] + TurkishSemitones.B)
+                pitches.append(pitches[-1] + TurkishSemitones.B.value)
             elif interval == "S":
-                pitches.append(pitches[-1] + TurkishSemitones.S)
+                pitches.append(pitches[-1] + TurkishSemitones.S.value)
             elif interval == "K":
-                pitches.append(pitches[-1] + TurkishSemitones.K)
+                pitches.append(pitches[-1] + TurkishSemitones.K.value)
             elif interval == "T":
-                pitches.append(pitches[-1] + TurkishSemitones.T)
+                pitches.append(pitches[-1] + TurkishSemitones.T.value)
             elif interval == "A":
-                pitches.append(pitches[-1] + TurkishSemitones.A)
+                pitches.append(pitches[-1] + TurkishSemitones.A.value)
             else:
                 raise ValueError(f"Unrecognized: {interval}")
         return pitches
@@ -85,9 +85,9 @@ def turkish_jins_factory(*, turkish_chord: TurkishChord, common_turkish_chords: 
         modulation_pitches.append(pitch)
     if turkish_chord.guclu is not None:
         modulation_pitches.append(turkish_chord.guclu)
-    for common_jins in common_turkish_chord:
-        if common_jins.intervals in turkish_chord.intervals:
-            modulation_pitches.append(turkish_chord.intervals.index(common_jins.intervals))
+    for common_turkish_chord in common_turkish_chords:
+        if common_turkish_chord.intervals in turkish_chord.intervals:
+            modulation_pitches.append(turkish_chord.intervals.index(common_turkish_chord.intervals))
     return Jins(pitches=pitches, modulation_pitches=modulation_pitches)
 
 

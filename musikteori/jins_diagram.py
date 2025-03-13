@@ -136,7 +136,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--theme",
         choices=Printer.themes.keys(),
-        required=True,
+        default="stars",
         help="Choose a theme for the printing.",
     )
     args = parser.parse_args()
@@ -148,5 +148,10 @@ if __name__ == "__main__":
                 ajnas={key: maqamator.arabic_ajnas[key] for key in sorted(maqamator.arabic_ajnas)}, theme=selected_theme
             )
         ),
+        encoding="utf-8",
+    )
+
+    pathlib.Path(f"turkish-ajnas-{args.theme}.txt").write_text(
+        str(Printer(ajnas=maqamator.turkish_ajnas, theme=selected_theme)),
         encoding="utf-8",
     )
