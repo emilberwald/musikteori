@@ -1,4 +1,5 @@
 from typing import List, Optional
+import enum
 
 
 class Jins:
@@ -25,6 +26,162 @@ class Jins:
         self.modulation_pitches = pitches if modulation_pitches is None else modulation_pitches
         self.tonics = tonics
         self.wholestep = wholestep
+
+
+class TurkishChord:
+    def __init__(self, *, intervals: str, guclu: int | None = None):
+        """Turkish Chord
+
+        Args:
+            intervals (str): The intervals in turkish notation (e.g. FBSKTA komas)
+            guclu (int | None, optional): None if not applicable, 4 if the first part is a tetrachord, 5 if pentachord. Defaults to None.
+        """
+        self.intervals = intervals
+        self.guclu = guclu
+
+
+def turkish_jins_factory(*, turkish_chord: TurkishChord, common_turkish_chords: List[TurkishChord]):
+    """Factory to help create Jins from turkish Makam
+    NOTE: See Geçki
+
+    Args:
+        turkish_chord (TurkishChord): The chord to convert to a Jins
+        common_turkish_turkish_chord (List[str]): Will be used to guess more modulation points by checking substrings against intervals
+
+    Raises:
+        ValueError: If something went wrong
+    """
+
+    class TurkishSemitones(enum.Enum):
+        F = 1 * 12.0 / 53.0
+        B = 4 * 12.0 / 53.0
+        S = 5 * 12.0 / 53.0
+        K = 8 * 12.0 / 53.0
+        T = 9 * 12.0 / 53.0
+        A = 12 * 12.0 / 53.0
+
+    def get_pitches(intervals: str):
+        pitches = [0]
+        for interval in intervals:
+            if interval == "F":
+                pitches.append(pitches[-1] + TurkishSemitones.F)
+            elif interval == "B":
+                pitches.append(pitches[-1] + TurkishSemitones.B)
+            elif interval == "S":
+                pitches.append(pitches[-1] + TurkishSemitones.S)
+            elif interval == "K":
+                pitches.append(pitches[-1] + TurkishSemitones.K)
+            elif interval == "T":
+                pitches.append(pitches[-1] + TurkishSemitones.T)
+            elif interval == "A":
+                pitches.append(pitches[-1] + TurkishSemitones.A)
+            else:
+                raise ValueError(f"Unrecognized: {interval}")
+        return pitches
+
+    pitches = get_pitches(turkish_chord.intervals)
+    modulation_pitches = []
+    for pitch in {pitches[0], pitches[-1]}:
+        modulation_pitches.append(pitch)
+    if turkish_chord.guclu is not None:
+        modulation_pitches.append(turkish_chord.guclu)
+    for common_jins in common_turkish_chord:
+        if common_jins.intervals in turkish_chord.intervals:
+            modulation_pitches.append(turkish_chord.intervals.index(common_jins.intervals))
+    return Jins(pitches=pitches, modulation_pitches=modulation_pitches)
+
+
+common_turkish_chords = {
+    "Kurdi4": TurkishChord(intervals="BTT"),
+    "Kurdi5": TurkishChord(intervals="BTTT"),
+    "Hicaz4Nihavend": TurkishChord(intervals="BAS"),
+    "Huzzam5": TurkishChord(intervals="STSA"),
+    "Segah5": TurkishChord(intervals="STKT"),
+    "Ferahnak5": TurkishChord(intervals="STTK"),
+    "Hicaz4": TurkishChord(intervals="SAS"),
+    "Hicaz5": TurkishChord(intervals="SAST"),
+    "Hicaz4Segah": TurkishChord(intervals="SAB"),
+    "Kaba4": TurkishChord(intervals="KSS"),
+    "Ussak4": TurkishChord(intervals="KST"),
+    "Karcigar": TurkishChord(intervals="KSTSAST", guclu=4),
+    "Huseyni5": TurkishChord(intervals="KSTT"),
+    "Buselik4": TurkishChord(intervals="TBT"),
+    "Buselik5": TurkishChord(intervals="TBTT"),
+    "Nihavend": TurkishChord(intervals="TBTTBAS", guclu=5),
+    "Mustear5": TurkishChord(intervals="TSKT"),
+    "Nikriz5": TurkishChord(intervals="TSAS"),
+    "Neveser": TurkishChord(intervals="TSASSAS", guclu=5),
+    "Rast4": TurkishChord(intervals="TKS"),
+    "Rast5": TurkishChord(intervals="TKST"),
+    "Cargah4": TurkishChord(intervals="TTB"),
+    "Cargah5": TurkishChord(intervals="TTBT"),
+    "Pencgah5": TurkishChord(intervals="TTKS"),
+}
+
+turkish_ajnas = {
+    name: turkish_jins_factory(turkish_chord=chord, common_turkish_chords=list(common_turkish_chords.values()))
+    for name, chord in common_turkish_chords.items()
+}
+
+
+def letters(jins: Jins, zero_letter: str, zero_octave: int = 4, octave_letter: str = "C"):
+    """Return an array of letters representing the scale.
+
+    Args:
+        zero (str): The 0 note.
+        zero_octave (int): The octave-letter-based octave the letter belongs to.
+        octave_letter (str): The octave root note.
+    """
+    result = []
+    quartertone_symbols = [
+        "A♮",
+        "A𝄲",
+        "B♭",
+        "B𝄳",
+        "B♮",
+        "C𝄳",
+        "C♮",
+        "C𝄲",
+        "D♭",
+        "D𝄳",
+        "D♮",
+        "D𝄲",
+        "E♭",
+        "E𝄳",
+        "E♮",
+        "F𝄳",
+        "F♮",
+        "F𝄲",
+        "G♭",
+        "G𝄳",
+        "G♮",
+        "G𝄲",
+        "A♭",
+        "A𝄳",
+    ]
+    zero_index = quartertone_symbols.index(f"{zero_letter[0]}♮")
+    octave_index = quartertone_symbols.index(f"{octave_letter[0]}♮")
+    notes = sorted(set(jins.pitches + jins.extension_pitches + jins.modulation_pitches + jins.tonics))
+    for note in notes:
+        quartertone_number = (note / jins.wholestep) * 4.0 + zero_index
+        decimalpart = quartertone_number - int(quartertone_number)
+        if decimalpart <= -0.5:
+            quartertone_number = quartertone_number - 1
+            decimalpart += 1
+        elif 0.5 <= decimalpart:
+            quartertone_number = quartertone_number + 1
+            decimalpart -= 1
+        else:
+            quartertone_number = quartertone_number
+        symbol_octaveless = quartertone_symbols[int(quartertone_number) % len(quartertone_symbols)]
+        octave = int((quartertone_number - octave_index) / len(quartertone_symbols)) + zero_octave
+        complete_symbol = f"{symbol_octaveless[0]}{octave}{symbol_octaveless[1]}"
+        if decimalpart > 0:
+            complete_symbol += f"+{round(50.0 * decimalpart)}¢"
+        elif decimalpart < 0:
+            complete_symbol += f"{round(50.0 * decimalpart)}¢"
+        result.append(complete_symbol)
+    return result
 
 
 def nonstandard_ajnas():
@@ -180,6 +337,7 @@ arabic_ajnas = {
     "Bayati": Jins(pitches=[0, 1.5, 3, 5], extension_pitches=[-2, -3.5, 7, 8], modulation_pitches=[0, 5]),
     # https://maqamworld.com/en/jins/sikah.php [260.74, 293.33, 310, 320, 347.65, 391.11, 422]Hz ~ [-354, -151, -55, 0, 144, 347, 479]c
     "Sikah": Jins(pitches=[0, 1.5, 3.5], extension_pitches=[-0.5, -1.5, -3.5, 4.5], modulation_pitches=[0, 3.5]),
+    "Husayni": Jins(pitches=[0, 2, 3, 3.5, 5, 7], modulation_pitches=[0]),
     "NahawandMurassa": Jins(pitches=[0, 2, 3, 5, 6], extension_pitches=[-1, 9], modulation_pitches=[0]),
     # Pretty sure 5 is a modulation pitch for Nahawand
     "Nahawand": Jins(pitches=[0, 2, 3, 5, 7], extension_pitches=[-1, -3, -4, 8], modulation_pitches=[0, 7]),
