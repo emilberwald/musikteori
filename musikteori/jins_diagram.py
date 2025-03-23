@@ -38,14 +38,14 @@ class Printer:
         },
     }
 
-    def __init__(self, ajnas: Dict[str, maqamator.Jins], theme: Dict[str, str]):
+    def __init__(self, ajnas: Dict[str, maqamator.Jins], theme: Dict[str, str], regular_tuning_semitones=5):
         self.theme = theme
         # Generate the fretboard grid
-        steps = numpy.linspace(0, 10, 41).tolist()
+        steps = numpy.linspace(0, 2 * regular_tuning_semitones, 2 * regular_tuning_semitones * 4 + 1).tolist()
         self._pitches_for_strings = [
             steps,
-            [step - 5 for step in steps],
-            [step - 10 for step in steps],
+            [step - regular_tuning_semitones for step in steps],
+            [step - 2 * regular_tuning_semitones for step in steps],
         ]
         self._atol = (
             float(min([min(numpy.diff(pitches_for_string)) for pitches_for_string in self._pitches_for_strings])) * 0.5
