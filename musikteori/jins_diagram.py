@@ -152,12 +152,18 @@ class Printer:
         if (ws := wb.active) is not None:
             current_height = 0
             row_ix = 1
+            ws.cell(row=row_ix, column=1, value=str(self.theme))
             for jins_name, jins in self.ajnas.items():
                 current_height = row_ix * row_height_in_mm
                 predicted_height = current_height + (2 + len(self._pitches_for_strings)) * row_height_in_mm
                 if (predicted_height % page_height_in_mm) < (current_height % page_height_in_mm):
                     # would overflow the page, start a new page
-                    ws.row_breaks.append(Break(id=row_ix - 1))
+                    ws.row_breaks.append(Break(id=row_ix))
+                    row_ix += 1
+                    ws.cell(row=row_ix, column=1, value=str(self.theme))
+                    row_ix += 2
+                else:
+                    row_ix += 2  # blank line between ajnas
 
                 ws.cell(row=row_ix, column=1, value=jins_name)
                 ws.cell(row=row_ix, column=1).font = Font(name="Consolas Regular", size=10)
@@ -186,7 +192,6 @@ class Printer:
                             ws.cell(row=row_ix, column=col_ix).fill = PatternFill(
                                 start_color="DDDDDD", end_color="DDDDDD", fill_type="solid"
                             )
-                row_ix += 2
 
             ws.page_margins.left = 10 / 25.4
             ws.page_margins.right = 10 / 25.4
