@@ -17,7 +17,7 @@ class MidiJinsAnalyzer:
                 if similars.get(key, (shift, 0))[-1] < value:
                     similars[key] = (shift, value)
         max_value = max([value for _, value in similars.values()])
-        return {name: (shift, value) for name, (shift, value) in similars.items() if value == max_value}
+        return {name: (pretty_midi.utilities.note_number_to_name(shift)[0], value) for name, (shift, value) in similars.items() if value == max_value}
 
     def _get_shifted_similars(self, shift=0):
         similarities = dict()
