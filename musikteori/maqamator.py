@@ -92,29 +92,44 @@ def turkish_jins_factory(*, turkish_chord: TurkishChord, common_turkish_chords: 
 
 
 common_turkish_chords = {
+    # Kurdi ~ Kurd
     "Kurdi4": TurkishChord(intervals="BTT"),
     "Kurdi5": TurkishChord(intervals="BTTT"),
     "Hicaz4Nihavend": TurkishChord(intervals="BAS"),
+    # Huzzam ~ Maqam Huzzam (Sikah + Hijaz)
     "Huzzam5": TurkishChord(intervals="STSA"),
+    # Segah ~ Sikah + Sikah?
     "Segah5": TurkishChord(intervals="STKT"),
+    # Ferahnak ~ Sikah + Rast?
     "Ferahnak5": TurkishChord(intervals="STTK"),
     "Hicaz4": TurkishChord(intervals="SAS"),
     "Hicaz5": TurkishChord(intervals="SAST"),
     "Hicaz4Segah": TurkishChord(intervals="SAB"),
+    # Kaba ~ Saba
     "Kaba4": TurkishChord(intervals="KSS"),
+    # Ussak ~ Bayati
     "Ussak4": TurkishChord(intervals="KST"),
+    # Karcigar ~ Maqam Bayati Shuri (Bayati + Hijaz)
     "Karcigar": TurkishChord(intervals="KSTSAST", guclu=4),
+    # Huseyni ~ Bayati
     "Huseyni5": TurkishChord(intervals="KSTT"),
+    # Buselik ~ Jins Nahawand
     "Buselik4": TurkishChord(intervals="TBT"),
     "Buselik5": TurkishChord(intervals="TBTT"),
+    # Nihavend ~ Maqam Nahawand ascending
     "Nihavend": TurkishChord(intervals="TBTTBAS", guclu=5),
+    # Mustear ~ Rast
     "Mustear5": TurkishChord(intervals="TSKT"),
     "Nikriz5": TurkishChord(intervals="TSAS"),
+    # Neveser ~ (Nikriz + Hijaz)
     "Neveser": TurkishChord(intervals="TSASSAS", guclu=5),
+    # Rast ~ Rast
     "Rast4": TurkishChord(intervals="TKS"),
     "Rast5": TurkishChord(intervals="TKST"),
+    # Cargah ~ Ajam
     "Cargah4": TurkishChord(intervals="TTB"),
     "Cargah5": TurkishChord(intervals="TTBT"),
+    # Pencgah ~ (extended) Rast
     "Pencgah5": TurkishChord(intervals="TTKS"),
 }
 
