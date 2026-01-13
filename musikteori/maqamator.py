@@ -337,7 +337,7 @@ arabic_ajnas = {
     "Bayati": Jins(pitches=[0, 1.5, 3, 5], extension_pitches=[-2, -3.5, 7, 8], modulation_pitches=[0, 5]),
     # https://maqamworld.com/en/jins/sikah.php [260.74, 293.33, 310, 320, 347.65, 391.11, 422]Hz ~ [-354, -151, -55, 0, 144, 347, 479]c
     "Sikah": Jins(pitches=[0, 1.5, 3.5], extension_pitches=[-0.5, -1.5, -3.5, 4.5], modulation_pitches=[0, 3.5]),
-    # Husayni can be seen as as Rast conjoined with Bayati
+    # Maqam Husayni connects Bayati's 5 to Rast's 0
     "NahawandMurassa": Jins(pitches=[0, 2, 3, 5, 6], extension_pitches=[-1, 9], modulation_pitches=[0]),
     # Pretty sure 5 is a modulation pitch for Nahawand
     "Nahawand": Jins(pitches=[0, 2, 3, 5, 7], extension_pitches=[-1, -3, -4, 8], modulation_pitches=[0, 7]),
